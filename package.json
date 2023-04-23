@@ -1,0 +1,49 @@
+{
+  "name": "index-webpack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack serve --node-env development ",
+    "build": "webpack --node-env production",
+    "stylelint": "stylelint \"src/**/*.scss\" --fix",
+    "eslint": "eslint \"src/**/*.js\" --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.21.4",
+    "@babel/preset-env": "^7.21.4",
+    "babel-loader": "^9.1.2",
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.7.3",
+    "eslint": "^8.37.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "html-loader": "^4.2.0",
+    "html-minimizer-webpack-plugin": "^4.3.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.7.5",
+    "postcss": "^8.4.21",
+    "postcss-loader": "^7.1.0",
+    "postcss-preset-env": "^8.3.0",
+    "prettier": "^2.8.7",
+    "resolve-url-loader": "^5.0.0",
+    "sass": "^1.60.0",
+    "sass-loader": "^13.2.2",
+    "stylelint": "^15.4.0",
+    "stylelint-config-clean-order": "^5.0.0",
+    "stylelint-config-standard": "^32.0.0",
+    "stylelint-config-standard-scss": "^7.0.1",
+    "stylelint-webpack-plugin": "^4.1.0",
+    "terser-webpack-plugin": "^5.3.7",
+    "webpack": "^5.77.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.13.2"
+  },
+  "dependencies": {
+    "modern-normalize": "^1.1.0"
+  }
+}
