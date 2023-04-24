@@ -1,5 +1,26 @@
 import "./sass/index.scss";
+import { languageEn, languageRu } from "./language";
 
-const hello = "Hello World!";
+function createTemplate(template, classname, text) {
+  const element = document.createElement(template);
+  element.className = classname;
+  element.innerHTML = text;
+  return element;
+}
+const wrapper = createTemplate("div", "wrapper", "");
 
-console.log(hello);
+document.body.appendChild(wrapper);
+wrapper.appendChild(createTemplate("h1", "title", "RSS Virtual Keyboard"));
+
+function createButton(language) {
+  const array = Object.values(language);
+  // console.log(array);
+  array.map((word) =>
+    wrapper.appendChild(createTemplate("button", "word-en", word))
+  );
+}
+
+createButton(languageEn);
+createButton(languageRu);
+
+// console.log(languageEn, languageRu);
