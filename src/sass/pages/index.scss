@@ -54,6 +54,12 @@
   transition: background-color 0.3s linear;
 }
 
+.word.active {
+background-color: #c71919;
+border-radius: 50%;
+transition: background-color 0.3s linear;
+}
+
 .word:hover {
   background-color: #c71919;
 }
@@ -63,12 +69,14 @@
   background-color: #191919;
 }
 
-.shift {
+.leftshift,
+.rightshift {
   min-width: 110px;
   background-color: #191919;
 }
 
-.ctrl,
+.rightctrl,
+.leftctrl,
 .capslock {
   min-width: 60px;
   background-color: #191919;
@@ -86,9 +94,14 @@
 }
 
 .win,
-.alt,
+.rightalt,
+.leftalt,
 .del,
-.backspace {
+.backspace,
+.arrowup,
+.arrowdown,
+.arrowleft,
+.arrowright, {
   background-color: #191919;
 }
 

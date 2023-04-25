@@ -1,5 +1,5 @@
 import "./sass/index.scss";
-import { languageEn, languageRu } from "./language";
+import { objKeyEN, objKeyRu } from "./language";
 
 function createTemplate(template, classname, text, classname2) {
   const element = document.createElement(template);
@@ -19,18 +19,17 @@ wrapper.appendChild(createTemplate("textarea", "textarea", "", "textarea"));
 const keyboard = createTemplate("div", "keyboard", "", "keyboard");
 wrapper.appendChild(keyboard);
 
-function createButton(language) {
-  const array = Object.values(language);
-  array.map((word) =>
+function createButton(obj) {
+  const array = Object.entries(obj).map((x) =>
     keyboard.appendChild(
-      createTemplate("button", `${word}`.toLowerCase(), word, "word")
+      createTemplate("button", `${x[0]}`.toLowerCase(), x[1].key, "word")
     )
   );
-  console.log(array);
+  return array;
+  // console.log(array);
 }
-const word = document.getElementsByClassName("word");
-console.log(word);
-createButton(languageEn);
+
+createButton(objKeyRu);
 
 wrapper.appendChild(
   createTemplate(
@@ -49,4 +48,11 @@ wrapper.appendChild(
   )
 );
 
-console.log(languageEn, languageRu);
+document.addEventListener("mousedown", (e) => {
+  e.target.classList.add("active");
+});
+document.addEventListener("mouseup", (e) => {
+  e.target.classList.remove("active");
+});
+
+console.log(objKeyEN, objKeyRu);
