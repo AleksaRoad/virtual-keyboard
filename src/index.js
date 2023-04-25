@@ -1,2 +1,2 @@
-import "./sass/index.scss";
-import "./keyboard";
+import './sass/index.scss';
+import './keyboard';
