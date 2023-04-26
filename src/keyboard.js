@@ -31,8 +31,25 @@ function createButton(obj) {
   );
   return array;
 }
+let ctrlalt = [];
+let state = 'objKeyEn';
+function getState() {
+  state = localStorage.getItem('state');
+  console.log(state);
+  let board = {};
+  if (state === 'objKeyEn') {
+    board = objKeyEn;
+  }
+  if (state === 'objKeyRu') {
+    board = objKeyRu;
+  }
+  return board;
+}
 
-createButton(objKeyEn);
+console.log(state);
+createButton(getState());
+
+// document.addEventListener('DOMContentLoaded', getState);
 
 wrapper.appendChild(
   createTemplate(
@@ -62,9 +79,9 @@ document.addEventListener('mousedown', (e) => {
     textarea.textContent = textArray.join('');
   }
   if (e.target.textContent.length === 1) {
-    console.log(textarea.textContent);
     textArray.push(e.target.textContent);
     textarea.textContent = textArray.join('');
+    console.log(textarea.value);
   }
   textarea.setSelectionRange(textArray.length, textArray.length);
 });
@@ -84,13 +101,8 @@ document.addEventListener('mouseout', (e) => {
 
 textarea.focus();
 
-let ctrlalt = [];
-let state = 'objKeyEn';
 document.addEventListener('keydown', (e) => {
   let actualWord = '';
-  if (e.code === 'Space') {
-    actualWord = ' ';
-  }
   if (e.key.length === 1) {
     e.preventDefault();
     if (state === 'objKeyEn') {
@@ -117,31 +129,29 @@ document.addEventListener('keydown', (e) => {
       keyboard.textContent = '';
       createButton(objKeyRu);
       state = 'objKeyRu';
+      localStorage.setItem('state', 'objKeyRu');
       console.log(state);
     } else if (state === 'objKeyRu') {
       keyboard.textContent = '';
       createButton(objKeyEn);
       state = 'objKeyEn';
+      localStorage.setItem('state', 'objKeyEn');
       console.log(state);
     }
   }
-  textarea.selectionStart = textarea.selectionEnd;
-  textarea.selectionEnd = textArray.length;
   textarea.setSelectionRange(textArray.length, textArray.length);
   console.log(e.code);
 });
 
 document.addEventListener('keyup', () => {
   ctrlalt = [];
-  textarea.selectionStart = textarea.selectionEnd;
-  textarea.selectionEnd = textArray.length;
-  textarea.setSelectionRange(textArray.length, textArray.length);
+  // textarea.setSelectionRange(textArray.length, textArray.length);
 });
 
-textarea.onfocus = () => {
-  setTimeout(() => {
-    textarea.selectionStart = textarea.selectionEnd;
-    textarea.selectionEnd = textArray.length;
-    textarea.setSelectionRange(textArray.length, textArray.length);
-  });
-};
+// textarea.onfocus = () => {
+//   setTimeout(() => {
+//     // textarea.selectionStart = textarea.selectionEnd;
+//     textarea.selectionEnd = textArray.length;
+//     textarea.setSelectionRange(textArray.length, textArray.length);
+//   });
+// };
