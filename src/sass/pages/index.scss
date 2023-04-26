@@ -27,6 +27,10 @@
   border-radius: 10px;
 }
 
+.textarea:focus {
+  outline: none;
+}
+
 .keyboard {
   display: flex;
   flex-wrap: wrap;
@@ -53,6 +57,11 @@
   background-color: #545454;
   border: none;
   border-radius: 5px;
+  box-shadow:
+      2px 2px 5px #020d18,
+      inset -2px -2px 4px -2px #020d18,
+      -2px -2px 5px #ebedef,
+      inset 2px 2px 4px -2px #ecf0f3;
 
   transition: background-color 0.3s linear;
 }
