@@ -5,6 +5,7 @@ function createTemplate(template, firstClassname, secondClassname, text) {
   const element = document.createElement(template);
   element.className = secondClassname;
   element.classList.add(firstClassname);
+  element.setAttribute('data', `${firstClassname}`);
   element.innerHTML = text;
   return element;
 }
@@ -35,6 +36,9 @@ let ctrlalt = [];
 let state = 'objKeyEn';
 function getState() {
   state = localStorage.getItem('state');
+  if (state === null) {
+    state = 'objKeyEn';
+  }
   console.log(state);
   let board = {};
   if (state === 'objKeyEn') {
@@ -103,6 +107,7 @@ textarea.focus();
 
 document.addEventListener('keydown', (e) => {
   let actualWord = '';
+
   if (e.key.length === 1) {
     e.preventDefault();
     if (state === 'objKeyEn') {
@@ -116,6 +121,14 @@ document.addEventListener('keydown', (e) => {
     textarea.textContent = textArray.join('');
     console.log(textArray);
   }
+  console.log(Object.keys(objKeyEn));
+
+  if (Object.keys(objKeyEn).includes(`${e.code}`)) {
+    document
+      .querySelector(`.keyboard .word.${e.code.toLowerCase()}`)
+      .classList.add('active');
+  }
+
   if (
     (e.code === 'ControlLeft' && !e.repeat) ||
     (e.code === 'AltLeft' && !e.repeat)
@@ -139,12 +152,16 @@ document.addEventListener('keydown', (e) => {
       console.log(state);
     }
   }
+
   textarea.setSelectionRange(textArray.length, textArray.length);
   console.log(e.code);
 });
 
-document.addEventListener('keyup', () => {
+document.addEventListener('keyup', (e) => {
   ctrlalt = [];
+  document
+    .querySelector(`.keyboard .word.${e.code.toLowerCase()}`)
+    .classList.remove('active');
   // textarea.setSelectionRange(textArray.length, textArray.length);
 });
 
@@ -155,3 +172,9 @@ document.addEventListener('keyup', () => {
 //     textarea.setSelectionRange(textArray.length, textArray.length);
 //   });
 // };
+
+// function pushCapsLock(activeButton){
+// if(activeButton === 'CapsLock'){
+
+// }
+// }
