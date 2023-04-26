@@ -1,12 +1,12 @@
-const path = require("path");
-const TerserPlugin = require("terser-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CopyPlugin = require("copy-webpack-plugin");
+const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = (env, node) => {
   // set mode in dependency of env mode
-  const isProd = node.nodeEnv === "production";
+  const isProd = node.nodeEnv === 'production';
 
   // specify file format
   const filename = (ext) =>
@@ -19,26 +19,26 @@ module.exports = (env, node) => {
   };
 
   const paths = {
-    source: path.resolve(__dirname, "src"),
-    output: path.resolve(__dirname, "dist"),
+    source: path.resolve(__dirname, 'src'),
+    output: path.resolve(__dirname, 'dist'),
   };
 
   return {
     // set mode in witch will run webpack
-    mode: isProd ? "production" : "development",
+    mode: isProd ? 'production' : 'development',
     // set source map for dev
-    devtool: isProd ? false : "inline-source-map",
+    devtool: isProd ? false : 'eval-cheap-module-source-map',
     // specify the environment target
-    target: isProd ? "browserslist" : "web",
+    target: isProd ? 'browserslist' : 'web',
 
     // webpack-dev-server configuration
     devServer: {
       // open default browser on run
       open: true,
       // serve static files from path
-      static: { directory: path.join(__dirname, "dist") },
+      static: { directory: path.join(__dirname, 'dist') },
       // allow to open serve on any device
-      host: "local-ip",
+      host: 'local-ip',
     },
 
     // root path for files
@@ -46,7 +46,7 @@ module.exports = (env, node) => {
 
     // entry points for every page
     entry: {
-      main: path.resolve(paths.source, "index.js"),
+      main: path.resolve(paths.source, 'index.js'),
     },
 
     // output settings
@@ -56,13 +56,13 @@ module.exports = (env, node) => {
       // create async chunks that are loaded on demand
       asyncChunks: true,
       // output bundle filename
-      filename: filename("js"),
+      filename: filename('js'),
       // general file path & format
-      assetModuleFilename: "[file]",
+      assetModuleFilename: '[file]',
       // specify where to place your build
-      path: path.resolve(__dirname, "dist"),
+      path: path.resolve(__dirname, 'dist'),
       // literally specify how to start every path
-      publicPath: isProd ? "./" : "auto",
+      publicPath: isProd ? './' : 'auto',
     },
 
     // performance threshold configuration values
@@ -74,21 +74,21 @@ module.exports = (env, node) => {
     plugins: [
       new HtmlWebpackPlugin({
         // set page title
-        title: "main",
+        title: 'main',
         // specify witch entry points to use
-        chunks: ["main"],
+        chunks: ['main'],
         // output filename
-        filename: "index.html",
-        template: path.resolve(paths.source, "index.html"),
+        filename: 'index.html',
+        template: path.resolve(paths.source, 'index.html'),
       }),
       new MiniCssExtractPlugin({
-        filename: filename("css"),
+        filename: filename('css'),
       }),
       new CopyPlugin({
         patterns: [
           {
-            from: path.resolve(__dirname, "src", "assets", "favicon.ico"),
-            to: path.resolve(__dirname, "dist", "assets", "favicon.ico"),
+            from: path.resolve(__dirname, 'src', 'assets', 'favicon.ico'),
+            to: path.resolve(__dirname, 'dist', 'assets', 'favicon.ico'),
           },
         ],
       }),
@@ -104,18 +104,18 @@ module.exports = (env, node) => {
       rules: [
         {
           test: /\.html$/i,
-          loader: "html-loader",
+          loader: 'html-loader',
         },
         {
           test: /\.js$/,
-          include: path.resolve(__dirname, "src"),
+          include: path.resolve(__dirname, 'src'),
           use: {
-            loader: "babel-loader",
+            loader: 'babel-loader',
           },
         },
         {
           test: /\.(png|jpe?g|gif|webp|svg)$/i,
-          type: "asset",
+          type: 'asset',
           parser: {
             dataUrlCondition: {
               maxSize: sizeLimit.images,
@@ -124,7 +124,7 @@ module.exports = (env, node) => {
         },
         {
           test: /\.(ttf|woff|woff2|eot)$/i,
-          type: "asset",
+          type: 'asset',
           parser: {
             dataUrlCondition: {
               maxSize: sizeLimit.fonts,
@@ -137,13 +137,13 @@ module.exports = (env, node) => {
             {
               loader: MiniCssExtractPlugin.loader,
             },
-            "css-loader",
-            "postcss-loader",
+            'css-loader',
+            'postcss-loader',
             {
-              loader: "resolve-url-loader",
+              loader: 'resolve-url-loader',
             },
             {
-              loader: "sass-loader",
+              loader: 'sass-loader',
               options: {
                 sourceMap: true,
               },

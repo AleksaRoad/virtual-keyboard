@@ -14,12 +14,15 @@
 }
 
 .textarea {
+  resize: none;
+
   display: block;
 
   height: 200px;
 
   font-size: 18px;
   color: #191919;
+
 
   border-radius: 10px;
 }
@@ -54,14 +57,17 @@
   transition: background-color 0.3s linear;
 }
 
-.word.active {
-background-color: #c71919;
-border-radius: 20px;
-transition: background-color 0.3s linear;
+.word:hover {
+  background-color: #ca4747;
 }
 
-.word:hover {
+.word.active {
+  opacity: 1;
   background-color: #c71919;
+  border-radius: 20px;
+
+  transition: background-color 0.3s linear;
+  transition: border-radius 0.2s linear;
 }
 
 .tab {
@@ -69,14 +75,14 @@ transition: background-color 0.3s linear;
   background-color: #191919;
 }
 
-.leftshift,
-.rightshift {
+.shiftleft,
+.shiftright {
   min-width: 110px;
   background-color: #191919;
 }
 
-.rightctrl,
-.leftctrl,
+.controlright,
+.controlleft,
 .capslock {
   min-width: 60px;
   background-color: #191919;
@@ -93,15 +99,15 @@ transition: background-color 0.3s linear;
   background-color: #191919;
 }
 
-.win,
-.rightalt,
-.leftalt,
-.del,
+.metaleft,
+.altright,
+.altleft,
+.delete,
 .backspace,
 .arrowup,
 .arrowdown,
 .arrowleft,
-.arrowright, {
+.arrowright {
   background-color: #191919;
 }
 
