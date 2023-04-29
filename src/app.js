@@ -1,10 +1,12 @@
 import BaseComponent from './baseComponent';
 import KeyBoard from './keyboard';
 import TextArea from './textarea';
+import Title from './title';
 
 export default class App extends BaseComponent {
   constructor(parent, tagName = 'div', className = '') {
     super(parent, tagName, className);
+    this.title = new Title(this.element, 'h1', 'title', 'RSS Virtual Keyboard');
     this.textarea = new TextArea(this.element, 'textarea');
     this.keyboard = new KeyBoard(this.element, 'keyboard', (item) => {
       this.textarea.element.value += item;
@@ -22,7 +24,6 @@ export default class App extends BaseComponent {
     this.keyboard.enter = () => {
       this.textarea.element.value += '\n';
     };
-
     this.keyboard.language = () => {};
     document.addEventListener('keydown', (e) => {
       e.preventDefault();
@@ -40,10 +41,21 @@ export default class App extends BaseComponent {
     this.keyboard.keys.Backspace.element.addEventListener('click', () => {
       this.textarea.element.focus();
     });
-
     this.keyboard.space = () => {
       this.textarea.element.value += ' ';
     };
+    this.title = new Title(
+      this.element,
+      'h3',
+      'title',
+      'Клавиатура создана на операционной системе Windows'
+    );
+    this.title = new Title(
+      this.element,
+      'h3',
+      'title',
+      'Переключение клавиш: ControlLeft + AltLeft'
+    );
   }
 
   handleDelBackspace(direction) {
