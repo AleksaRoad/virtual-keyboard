@@ -1,4 +1,8 @@
-/* stylelint-disable-next-line no-empty-source */
+body {
+  font-family: 'Segoe UI', Roboto, Tahoma, sans-serif;
+  background-color: #101317;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -10,6 +14,7 @@
 }
 
 .title {
+  color: #fff;
   text-align: center;
 }
 
@@ -23,7 +28,6 @@
   font-size: 18px;
   color: #191919;
 
-
   border-radius: 10px;
 }
 
@@ -34,7 +38,7 @@
 .keyboard {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 4px;
   justify-content: space-around;
 
   padding: 10px;
@@ -44,33 +48,38 @@
   border-radius: 10px;
 }
 
-.word {
+.key,
+.alt,
+.del,
+.backspace,
+.language,
+.tab,
+.shift,
+.ctrl,
+.capslock,
+.space,
+.enter {
   cursor: pointer;
 
   min-width: 40px;
   height: 40px;
 
+  font-family: 'Segoe UI', Roboto, Tahoma, sans-serif;
   font-size: 18px;
+  line-height: 200%;
   color: #fff;
   text-align: center;
 
   background-color: #545454;
   border: none;
   border-radius: 5px;
-  box-shadow:
-      2px 2px 5px #020d18,
-      inset -2px -2px 4px -2px #020d18,
-      -2px -2px 5px #ebedef,
-      inset 2px 2px 4px -2px #ecf0f3;
+  box-shadow: 2px 2px 5px #020d18, inset -2px -2px 4px -2px #020d18,
+    -2px -2px 5px #ebedef, inset 2px 2px 4px -2px #ecf0f3;
 
   transition: background-color 0.3s linear;
 }
 
-.word:hover {
-  background-color: #ca4747;
-}
-
-.word.active {
+.key.active {
   opacity: 1;
   background-color: #c71919;
   border-radius: 20px;
@@ -79,21 +88,28 @@
   transition: border-radius 0.2s linear;
 }
 
+.backspace {
+    min-width: 100px;
+      background-color: #191919;
+}
+
 .tab {
   min-width: 80px;
   background-color: #191919;
 }
 
-.shiftleft,
-.shiftright {
+.shift {
   min-width: 110px;
   background-color: #191919;
 }
 
-.controlright,
-.controlleft,
-.capslock {
+.ctrl {
   min-width: 60px;
+    background-color: #191919;
+}
+
+.capslock {
+  min-width: 90px;
   background-color: #191919;
 }
 
@@ -108,10 +124,12 @@
   background-color: #191919;
 }
 
-.metaleft,
-.altright,
-.altleft,
-.delete,
+.language {
+  background-color: #c71919;
+}
+
+.alt,
+.del,
 .backspace,
 .arrowup,
 .arrowdown,
@@ -121,5 +139,21 @@
 }
 
 .text {
+  color: #fff;
   text-align: center;
+}
+
+.key:hover,
+.alt:hover,
+.del:hover,
+.backspace:hover,
+.language:hover,
+.ru:hover,
+.tab:hover,
+.shift:hover,
+.ctrl:hover,
+.capslock:hover,
+.space:hover,
+.enter:hover {
+  background-color: #ca4747;
 }
