@@ -79,15 +79,6 @@ body {
   transition: background-color 0.3s linear;
 }
 
-.key.active {
-  opacity: 1;
-  background-color: #c71919;
-  border-radius: 20px;
-
-  transition: background-color 0.3s linear;
-  transition: border-radius 0.2s linear;
-}
-
 .backspace {
     min-width: 100px;
       background-color: #191919;
@@ -156,4 +147,13 @@ body {
 .space:hover,
 .enter:hover {
   background-color: #ca4747;
+}
+
+.active {
+  opacity: 1;
+  background-color: #c71919;
+  border-radius: 20px;
+
+  transition: background-color 0.3s linear;
+  transition: border-radius 0.2s linear;
 }

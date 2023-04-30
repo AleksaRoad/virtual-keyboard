@@ -1,5 +1,5 @@
 export default class BaseComponent {
-  constructor(parent, tagName = 'div', className = 'key', textContent = '') {
+  constructor({ parent, tagName = 'div', className = '', textContent = '' }) {
     const el = document.createElement(tagName);
     el.className = className;
     if (textContent) {
