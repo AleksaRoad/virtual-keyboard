@@ -15,159 +15,115 @@ export default class KeyBoard extends BaseComponent {
     this.alt = null;
     this.space = null;
     this.shift = null;
+    this.state = state;
     this.keys = {};
+    this.keysSpecial = {};
     this.isCaps = false;
     Object.entries(state).forEach((x) => {
       let btn = null;
-      const keycode = x[0];
+      const [keycode, value] = x;
 
       switch (keycode) {
         case 'Backspace':
-          btn = new Key({
-            parent: this.element,
-            className: 'backspace',
-            value: x[1].key,
-            handleInput: () => {
-              this.backspace();
-            },
+          btn = this.createSpecialKey('backspace', value.key, () => {
+            this.backspace();
           });
+          this.keysSpecial[keycode] = btn;
           break;
         case 'Tab':
-          btn = new Key({
-            parent: this.element,
-            className: 'tab',
-            value: x[1].key,
-            handleInput: () => {
-              this.tab();
-            },
+          btn = this.createSpecialKey('tab', value.key, () => {
+            this.tab();
           });
+          this.keysSpecial[keycode] = btn;
           break;
         case 'Delete':
-          btn = new Key({
-            parent: this.element,
-            className: 'del',
-            value: x[1].key,
-            handleInput: () => {
-              this.del();
-            },
+          btn = this.createSpecialKey('del', value.key, () => {
+            this.del();
           });
+          this.keysSpecial[keycode] = btn;
           break;
         case 'CapsLock':
           btn = new KeyCapsLock({
             parent: this.element,
             className: 'capslock',
-            value: x[1].key,
+            value: value.key,
             handleInput: () => {
               this.capslock();
             },
           });
           btn.element.onmouseup = null;
+          this.keysSpecial[keycode] = btn;
           break;
         case 'Enter':
-          btn = new Key({
-            parent: this.element,
-            className: 'enter',
-            value: x[1].key,
-            handleInput: () => {
-              this.enter();
-            },
+          btn = this.createSpecialKey('enter', value.key, () => {
+            this.enter();
           });
+          this.keysSpecial[keycode] = btn;
           break;
         case 'ShiftLeft':
-          btn = new Key({
-            parent: this.element,
-            className: 'shift',
-            value: x[1].key,
-            handleInput: () => {
-              this.shift();
-            },
+          btn = this.createSpecialKey('shift', value.key, () => {
+            this.shift();
           });
+          this.keysSpecial[keycode] = btn;
+          btn.element.onmouseup = () => {
+            this.setAlternativeRegister(this.state, false);
+          };
           break;
         case 'ShiftRight':
-          btn = new Key({
-            parent: this.element,
-            className: 'shift',
-            value: x[1].key,
-            handleInput: () => {
-              this.shift();
-            },
+          btn = this.createSpecialKey('shift', value.key, () => {
+            this.shift();
           });
+          this.keysSpecial[keycode] = btn;
+          btn.element.onmouseup = () => {
+            this.setAlternativeRegister(this.state, false);
+          };
           break;
         case 'ControlRight':
-          btn = new Key({
-            parent: this.element,
-            className: 'ctrl',
-            value: x[1].key,
-            handleInput: () => {
-              this.language();
-            },
+          btn = this.createSpecialKey('ctrl', value.key, () => {
+            this.ctrl();
           });
+          this.keysSpecial[keycode] = btn;
           break;
         case 'Language':
-          btn = new Key({
-            parent: this.element,
-            className: 'language',
-            value: x[1].key,
-            handleInput: () => {
-              this.language();
-            },
+          btn = this.createSpecialKey('language', value.key, () => {
+            this.language();
           });
+          this.keys[keycode] = btn;
           break;
         case 'AltLeft':
-          btn = new Key({
-            parent: this.element,
-            className: 'alt',
-            value: x[1].key,
-            handleInput: () => {
-              this.alt();
-            },
+          btn = this.createSpecialKey('alt', value.key, () => {
+            this.alt();
           });
+          this.keysSpecial[keycode] = btn;
           break;
         case 'Space':
-          btn = new Key({
-            parent: this.element,
-            className: 'space',
-            value: x[1].key,
-            handleInput: () => {
-              this.space();
-            },
+          btn = this.createSpecialKey('space', value.key, () => {
+            this.space();
           });
+          this.keysSpecial[keycode] = btn;
           break;
         case 'AltRight':
-          btn = new Key({
-            parent: this.element,
-            className: 'alt',
-            value: x[1].key,
-            handleInput: () => {
-              this.alt();
-            },
+          btn = this.createSpecialKey('alt', value.key, () => {
+            this.alt();
           });
+          this.keysSpecial[keycode] = btn;
           break;
         case 'ControlLeft':
-          btn = new Key({
-            parent: this.element,
-            className: 'ctrl',
-            value: x[1].key,
-            handleInput: () => {},
-          });
+          btn = this.createSpecialKey('ctrl', value.key, () => {});
+          this.keysSpecial[keycode] = btn;
           break;
         default:
-          btn = new Key({
-            parent: this.element,
-            className: 'key',
-            value: x[1].key,
-            handleInput: (item) => {
-              handleInput(item);
-            },
+          btn = this.createSpecialKey('key', value.key, (item) => {
+            handleInput(item);
           });
+          this.keys[keycode] = btn;
           break;
       }
-      this.keys[keycode] = btn;
     });
   }
 
   handleDown(keycode) {
-    const current = this.keys[keycode];
+    const current = this.keys[keycode] || this.keysSpecial[keycode];
     if (current) {
       current.handleDown();
       current.addActive();
@@ -175,34 +131,54 @@ export default class KeyBoard extends BaseComponent {
   }
 
   handleUp(keycode) {
-    const current = this.keys[keycode];
+    const current = this.keys[keycode] || this.keysSpecial[keycode];
     if (current) {
-      if (keycode === 'CapsLock') {
-        if (this.isCaps) {
-          return;
-        }
+      if (keycode === 'CapsLock' && this.isCaps) {
+        return;
       }
       if (keycode === 'ShiftLeft') {
-        console.log(Object.values(this.keys));
-        Object.values(this.keys).forEach((key) => {
-          key.setValue(key.prevValue);
-        });
+        this.setAlternativeRegister(this.state, false);
       }
       current.removeActive();
     }
   }
 
   setLanguageAndRegister(state, register) {
+    this.state = state;
     if (register) this.isCaps = !this.isCaps;
     Object.entries(state).forEach(([key, value]) => {
-      this.keys[key].setValue(this.isCaps ? value.CapsLock : value.key);
+      this.keys[key]?.setValue(
+        this.isCaps ? value.key.toUpperCase() : value.key
+      );
     });
   }
 
-  setAlternativeRegister(state) {
+  setAlternativeRegister(state, register = true) {
     Object.entries(state).forEach(([key, value]) => {
-      this.keys[key].setPrevValue(this.keys[key].value);
-      this.keys[key].setValue(value.shiftkey);
+      const result = register ? value.shiftkey : null;
+      let capsResult;
+      if (register) {
+        if (this.isCaps) {
+          capsResult = value.key;
+        } else {
+          capsResult = value.key.toUpperCase();
+        }
+      } else if (this.isCaps) {
+        capsResult = value.key.toUpperCase();
+      } else {
+        capsResult = value.key;
+      }
+
+      this.keys[key]?.setValue(result ?? capsResult);
+    });
+  }
+
+  createSpecialKey(className, value, handleInput) {
+    return new Key({
+      parent: this.element,
+      className,
+      value,
+      handleInput,
     });
   }
 }

@@ -7,7 +7,7 @@ export default class App extends BaseComponent {
   constructor(parent, tagName = 'div', className = '') {
     super({ parent, tagName, className });
     this.caret = 0;
-    this.langId = 0;
+    this.langId = +localStorage.getItem('langId') || 0;
     this.langs = [objKeyEn, objKeyRu];
     this.apptitle = new BaseComponent({
       parent: this.element,
@@ -19,13 +19,14 @@ export default class App extends BaseComponent {
       parent: this.element,
       className: 'textarea',
     });
+
     this.keyboard = new KeyBoard({
       parent: this.element,
       className: 'keyboard',
       handleInput: (item) => {
         this.textarea.addText(item);
       },
-      state: objKeyEn,
+      state: this.langs[this.langId],
     });
 
     this.keyboard.backspace = () => {
@@ -45,6 +46,7 @@ export default class App extends BaseComponent {
     };
     this.keyboard.language = () => {
       this.langId = (this.langId + 1) % this.langs.length;
+      localStorage.setItem('langId', this.langId.toString());
       this.keyboard.setLanguageAndRegister(this.langs[this.langId], false);
     };
     this.keyboard.shift = () => {
@@ -62,12 +64,15 @@ export default class App extends BaseComponent {
       e.preventDefault();
       this.keyboard.handleUp(e.code);
     });
-    this.keyboard.keys.Delete.element.addEventListener('click', () => {
+    this.keyboard.keysSpecial.Delete.element.addEventListener('click', () => {
       this.textarea.setFocus();
     });
-    this.keyboard.keys.Backspace.element.addEventListener('click', () => {
-      this.textarea.setFocus();
-    });
+    this.keyboard.keysSpecial.Backspace.element.addEventListener(
+      'click',
+      () => {
+        this.textarea.setFocus();
+      }
+    );
     this.keyboard.space = () => {
       this.textarea.addText(' ');
     };
@@ -81,7 +86,7 @@ export default class App extends BaseComponent {
       parent: this.element,
       tagName: 'h3',
       className: 'title',
-      textContent: 'Language switching: ctrlleft + altleft or key Ru/En',
+      textContent: 'Language switching: ctrlleft + altleft or key RU/EN',
     });
   }
 

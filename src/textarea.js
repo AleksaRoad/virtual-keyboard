@@ -10,7 +10,13 @@ export default class TextArea extends BaseComponent {
   }
 
   addText(value) {
-    this.element.value += value;
+    this.element.setRangeText(
+      value,
+      this.element.selectionStart,
+      this.element.selectionEnd,
+      'end'
+    );
+    this.setFocus();
   }
 
   setFocus() {

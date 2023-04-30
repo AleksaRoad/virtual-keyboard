@@ -3,7 +3,6 @@ import BaseComponent from './baseComponent';
 export default class Key extends BaseComponent {
   constructor({ parent, className, value, handleInput }) {
     super({ parent, className });
-    this.prevValue = null;
     this.value = value;
     this.handleInput = handleInput;
     this.element.textContent = value;
@@ -38,9 +37,5 @@ export default class Key extends BaseComponent {
   setValue(value) {
     this.value = value;
     this.element.textContent = value;
-  }
-
-  setPrevValue(value) {
-    this.prevValue = value;
   }
 }

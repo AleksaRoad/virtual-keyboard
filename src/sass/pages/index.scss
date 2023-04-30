@@ -1,4 +1,5 @@
 body {
+  user-select: none;
   font-family: 'Segoe UI', Roboto, Tahoma, sans-serif;
   background-color: #101317;
 }
@@ -80,8 +81,8 @@ body {
 }
 
 .backspace {
-    min-width: 100px;
-      background-color: #191919;
+  min-width: 100px;
+  background-color: #191919;
 }
 
 .tab {
@@ -96,7 +97,7 @@ body {
 
 .ctrl {
   min-width: 60px;
-    background-color: #191919;
+  background-color: #191919;
 }
 
 .capslock {
@@ -139,7 +140,6 @@ body {
 .del:hover,
 .backspace:hover,
 .language:hover,
-.ru:hover,
 .tab:hover,
 .shift:hover,
 .ctrl:hover,
@@ -147,6 +147,21 @@ body {
 .space:hover,
 .enter:hover {
   background-color: #ca4747;
+}
+
+.key:active,
+.alt:active,
+.del:active,
+.backspace:active,
+.language:active,
+.tab:active,
+.shift:active,
+.ctrl:active,
+.capslock:active,
+.space:active,
+.enter:active {
+  background-color: #c71919;
+  border-radius: 20px;
 }
 
 .active {
