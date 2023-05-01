@@ -16,8 +16,6 @@ module.exports = {
     node: true,
   },
   rules: {
-    'no-debugger': 'off',
-    'class-methods-use-this': 'off',
     'prettier/prettier': [
       'error',
       {
