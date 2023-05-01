@@ -75,7 +75,7 @@ const objKeyEn = {
   },
 };
 const objKeyRu = {
-  Backquote: { key: 'ё', shiftkey: 'Ё' },
+  Backquote: { key: 'ё' },
   Digit1: { key: '1', shiftkey: '!' },
   Digit2: { key: '2', shiftkey: '"' },
   Digit3: { key: '3', shiftkey: '№' },
